@@ -1,38 +1,656 @@
-.App {
+/* General Reset and Box Model Fix */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Share Tech Mono', monospace; /* Good cyberpunk font */
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e); /* Dark, futuristic gradient */
+  color: #00f7ff; /* Neon blue text */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  min-height: 100vh; /* Ensure body takes full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* App Container */
+.app-container { /* Changed from .app to .app-container for consistency */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-grow: 1; /* Allow container to grow and push footer down if any */
+}
+
+/* Glitch Title */
+h1.title { /* Specificity for the main title */
+  font-size: 3rem;
   text-align: center;
+  color: #ff00ff; /* Neon pink */
+  text-shadow: 0 0 5px #ff00ff, 0 0 20px #00ffff; /* Pink and blue glow */
+  animation: glitch 2s infinite;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  line-height: 1.2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.glitch-text {
+    display: block;
+    animation: glitch 2s infinite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.glitch-text-sub {
+    display: block;
+    font-size: 1.5rem;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+    animation: flicker 4s infinite alternate;
+    margin-top: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+/* Typewriter Effect Container */
+.typewriter-container {
+    text-align: center;
+    margin: 20px auto 40px auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #39ff14; /* Green glow for terminal */
+    max-width: 700px;
+    overflow: hidden; /* Ensure text doesn't spill */
+}
+
+.typewriter {
+  font-size: 1.2rem;
+  color: #39ff14; /* Neon green */
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #39ff14; /* Cursor effect */
+  animation: typing 4s steps(40, end) forwards, blink 0.8s step-end infinite;
+  display: inline-block; /* Essential for typing animation width */
+}
+
+/* Form Styling (App's meme form) */
+.meme-form { /* Specificity for the form */
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(20, 20, 40, 0.8);
+  padding: 25px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px #ff00ff, 0 0 15px #00ffff inset; /* Stronger neon glow */
+  border: 1px solid rgba(255, 0, 255, 0.3);
+}
+
+.meme-form input, .meme-form button { /* Specificity */
+  font-size: 1rem;
+  margin: 12px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  width: calc(100% - 24px); /* Account for margin */
+  max-width: 450px;
+}
+
+.meme-form input { /* Specificity */
+  background: rgba(0, 0, 0, 0.7);
+  color: #00ffff;
+  box-shadow: 0 0 10px #00ffff, 0 0 5px #00ffff inset;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.meme-form input::placeholder {
+    color: rgba(0, 255, 255, 0.6);
+}
+
+.meme-form button { /* Specificity */
+  background-color: #ff00ff;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 20px #ff00ff;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 0, 255, 0.5);
+}
+
+.meme-form button:hover {
+  transform: translateY(-3px) scale(1.02);
+  background-color: #ff33ff;
+  box-shadow: 0 0 30px #ff00ff;
+}
+
+/* Meme Grid */
+.meme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly larger cards */
+  gap: 35px; /* More spacing */
+  padding: 40px;
+}
+
+/* Meme Card */
+.meme-card {
+  background-color: rgba(20, 20, 50, 0.9); /* More opaque */
+  border: 2px solid #00ffff55; /* Stronger border */
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 20px #00ffff, 0 0 25px #ff00ff, 0 0 10px #00ffff inset; /* Enhanced glow */
+  transition: all 0.4s ease;
+  animation: flicker 3s infinite alternate; /* Slower flicker */
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out content */
+}
+
+.meme-card:hover {
+  transform: scale(1.03) translateY(-5px); /* Lift and enlarge */
+  box-shadow: 0 0 30px #00ffff, 0 0 40px #ff00ff;
+}
+
+.meme-card h3 {
+    color: #39ff14; /* Neon green title */
+    font-size: 1.6rem;
+    margin-bottom: 5px; /* Reduced margin */
+    text-shadow: 0 0 8px #39ff14;
+}
+
+.meme-owner-display { /* New style for displaying meme owner */
+    font-size: 0.8rem;
+    color: #a0e0ff;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+
+.meme-card img {
+  width: 100%;
+  height: 250px; /* Fixed height for consistency */
+  border-radius: 8px;
+  margin-top: 15px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Tag Styling */
+.tag-container {
+  margin: 15px 0;
+  min-height: 25px; /* Ensure space even if no tags */
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  margin: 4px;
+  display: inline-block;
+  background: rgba(255, 0, 255, 0.15); /* Slightly darker */
+  border: 1px solid #ff00ff;
+  color: #00ffff;
+  border-radius: 25px;
+  text-shadow: 0 0 5px #00ffff;
+  animation: flicker 2.5s infinite alternate;
+  font-weight: bold;
+}
+
+/* Caption & Vibe */
+.caption,
+.vibe {
+  font-style: italic;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  color: #a0e0ff;
+  text-shadow: 0 0 5px #00f7ff;
+  word-wrap: break-word; /* Ensure long text wraps */
+}
+
+.current-bid, .upvote-count, .downvote-count { /* Added downvote-count */
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #fff;
+    text-shadow: 0 0 3px #00f7ff;
+}
+
+.bid-amount {
+    font-weight: bold;
+    color: #ffcc00; /* Gold-like for credits */
+    text-shadow: 0 0 5px #ffcc00;
+}
+
+.bidder-name {
+    font-style: italic;
+    color: #99ff99; /* Light green for bidder */
+}
+
+.votes {
+    font-weight: bold;
+    color: #00ff00; /* Bright green for upvotes */
+    text-shadow: 0 0 5px #00ff00;
+}
+
+/* Bidding Input Field */
+.bid-input {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.bid-input input {
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffcc00;
+    border: 1px solid #ffcc00;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px #ffcc00;
+    max-width: 150px;
+    flex-grow: 1;
+}
+
+.bid-input input::placeholder {
+    color: rgba(255, 204, 0, 0.6);
+}
+
+
+.bid-input button.bid-button {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  background-color: #ffcc00; /* Gold color */
+  color: #000;
+  border: 1px solid #ffcc00;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #ffcc00;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+}
+
+.bid-input button.bid-button:hover {
+  background-color: #ffeb3b;
+  color: #333;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 25px #ffcc00;
+}
+
+
+/* Voting Buttons */
+.vote-buttons {
+  margin-top: 15px;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+.vote-buttons button.vote-button { /* Specificity for vote buttons */
+  padding: 8px 15px;
+  font-size: 1rem;
+  background-color: rgba(57, 255, 20, 0.1); /* Slightly transparent neon green */
+  color: #39ff14; /* Neon green */
+  border: 1px solid #39ff14;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #39ff14;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Style for when a vote button is "active" or "voted" */
+.vote-buttons button.upvote-button.voted {
+    background-color: #39ff14; /* Solid green when voted */
+    color: #000;
+    box-shadow: 0 0 15px #39ff14, 0 0 25px #39ff14 inset;
+}
+
+.vote-buttons button.downvote-button.voted {
+    background-color: #ff3232; /* Solid red when voted */
+    color: #fff;
+    box-shadow: 0 0 15px #ff3232, 0 0 25px #ff3232 inset;
+}
+
+
+.vote-buttons button.upvote-button:hover:not(.voted) { /* Only hover if not already voted */
+  background-color: #39ff14;
+  color: #000;
+  transform: translateY(-2px) scale(1.05);
+}
+
+.vote-buttons button.downvote-button {
+  background-color: rgba(255, 50, 50, 0.1); /* Slightly transparent red */
+  color: #ff3232; /* Neon red */
+  border: 1px solid #ff3232;
+  box-shadow: 0 0 10px #ff3232;
+}
+
+.vote-buttons button.downvote-button:hover:not(.voted) { /* Only hover if not already voted */
+  background-color: #ff3232;
+  color: #000;
+  transform: translateY(2px) scale(1.05);
+}
+
+.vote-buttons button.generate-caption-button,
+.vote-buttons button.delete-button {
+    background-color: rgba(100, 100, 255, 0.1); /* Purple-blueish */
+    color: #99aaff;
+    border: 1px solid #99aaff;
+    box-shadow: 0 0 10px #99aaff;
+    font-size: 0.85rem;
+    padding: 7px 14px;
+}
+
+.vote-buttons button.generate-caption-button:hover,
+.vote-buttons button.delete-button:hover {
+    background-color: #99aaff;
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #99aaff;
+}
+
+.vote-buttons button.delete-button {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff0000;
+    border: 1px solid #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+}
+
+.vote-buttons button.delete-button:hover {
+    background-color: #ff0000;
+    color: #fff;
+    box-shadow: 0 0 20px #ff0000;
+}
+
+
+/* Leaderboard Section */
+.leaderboard {
+  max-width: 600px; /* Wider leaderboard */
+  margin: 50px auto;
+  background-color: rgba(0, 0, 0, 0.85); /* Darker background */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px #ff00ff, 0 0 15px #00ffff; /* Stronger glow */
+  color: #fff;
+  border: 1px solid rgba(255, 0, 255, 0.4);
+}
+
+.leaderboard h2 {
+  text-align: center;
+  font-size: 2rem; /* Larger title */
+  color: #ff00ff;
+  text-shadow: 0 0 10px #00ffff, 0 0 15px #ff00ff;
+  margin-bottom: 25px;
+}
+
+.leaderboard ol {
+    list-style: none; /* Remove default numbering */
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px; /* More padding */
+  border-bottom: 1px dashed #00ffff66; /* Dashed line for a hacker feel */
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background-color: rgba(50, 50, 70, 0.3); /* Slight background for items */
+  border-radius: 5px;
+  margin-bottom: 8px; /* Space between items */
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-item:hover {
+    background-color: rgba(80, 80, 100, 0.5);
+    transform: translateX(5px);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.leaderboard-rank {
+    font-weight: bold;
+    color: #39ff14; /* Neon green rank */
+    margin-right: 15px;
+    text-shadow: 0 0 5px #39ff14;
+}
+
+.leaderboard-title {
+    flex-grow: 1; /* Take up available space */
+    color: #00f7ff;
+    text-shadow: 0 0 3px #00f7ff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Handle long titles */
+}
+
+.leaderboard-upvotes {
+    font-weight: bold;
+    color: #ffcc00; /* Gold for upvotes */
+    margin-left: 15px;
+    text-shadow: 0 0 5px #ffcc00;
+}
+
+
+/* No Memes Message */
+.no-memes-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    padding: 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    margin: 40px auto;
+    max-width: 600px;
+    border: 1px dashed #ff00ff;
+    animation: flicker 4s infinite alternate-reverse;
+}
+
+
+/* Animations */
+@keyframes glitch {
+  0% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff; transform: translate(0, 0); }
+  20% { text-shadow: -2px 2px 0 #ff00ff, 2px -2px 0 #00ffff; transform: translate(-1px, 1px); }
+  40% { text-shadow: 2px -2px 0 #ff00ff, -2px 2px 0 #00ffff; transform: translate(1px, -1px); }
+  60% { text-shadow: 1px -1px 0 #ff00ff, -1px 1px 0 #00ffff; transform: translate(-0.5px, 0.5px); }
+  80% { text-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff; transform: translate(0, 0); }
+  100% { text-shadow: -2px -2px 0 #ff00ff, 2px 2px 0 #00ffff; transform: translate(1px, 1px); }
+}
+
+@keyframes flicker {
+  0%, 19.9%, 22%, 24.9%, 55%, 57.9%, 100% { opacity: 1; }
+  20%, 21.9%, 25%, 56%, 57.9% { opacity: 0.7; } /* More subtle flicker */
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1.title {
+    font-size: 2.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  .glitch-text-sub {
+      font-size: 1.2rem;
+  }
+  .meme-form, .leaderboard, .typewriter-container {
+    max-width: 95%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .meme-grid {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+    padding: 20px;
+  }
+  .meme-card {
+    padding: 15px;
+  }
+  .vote-buttons, .bid-input {
+      flex-direction: column;
+      gap: 8px;
+  }
+  .vote-buttons button, .bid-input button, .bid-input input {
+      width: calc(100% - 16px); /* Adjust for padding/margin */
+      max-width: none; /* Remove max-width on mobile */
   }
 }
+
+/* --- Authentication Form Styles --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh; /* Adjust as needed */
+    padding: 20px;
+}
+
+.auth-form {
+    background-color: rgba(10, 10, 30, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #00ffff, 0 0 10px #ff00ff inset;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.auth-form h2 {
+    font-size: 2rem;
+    color: #39ff14;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px #39ff14;
+}
+
+.auth-form input {
+    display: block;
+    width: calc(100% - 24px); /* Full width with padding */
+    margin: 15px auto;
+    padding: 12px 18px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid #00ffff;
+    border-radius: 8px;
+    color: #00ffff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 8px #00ffff inset;
+}
+
+.auth-form input::placeholder {
+    color: rgba(0, 255, 255, 0.7);
+}
+
+.auth-form button {
+    width: calc(100% - 24px);
+    margin: 25px auto 15px auto;
+    padding: 15px;
+    background-color: #ff00ff;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff00ff;
+    transition: all 0.3s ease;
+}
+
+.auth-form button:hover {
+    background-color: #ff33ff;
+    box-shadow: 0 0 30px #ff00ff;
+    transform: translateY(-2px);
+}
+
+.auth-message {
+    color: #ffcc00; /* Yellow for messages */
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.toggle-auth {
+    font-size: 0.9rem;
+    color: #a0e0ff;
+}
+
+.toggle-link {
+    color: #39ff14; /* Neon green link */
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.toggle-link:hover {
+    color: #00ffff;
+}
+
+/* User Info Bar */
+.user-info {
+    text-align: left;
+    margin: 20px auto;
+    padding: 15px 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00ffff;
+    color: #00f7ff;
+    font-size: 1.1rem;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 10px; /* Space between items */
+}
+
+.username-display {
+    font-weight: bold;
+    color: #39ff14;
+    text-shadow: 0 0 5px #39ff14;
+}
+
+.logout-button {
+    background-color: rgba(255, 50, 50, 0.2);
+    color: #ff3232;
+    border: 1px solid #ff3232;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px rgba(255, 50, 50, 0.5);
+}
+
+.logout-button:hover {
+    background-color: #ff3232;
+    color: #fff;
+    box-shadow: 0 0 15px #ff3232;
+    transform: translateY(-1px);
+}
+
+.meme-owner { /* Styling for meme owner's username in leaderboard */
+    font-weight: bold;
+    color: #99ff99; /* Light green */
+    text-shadow: 0 0 3px #99ff99;
+}
+
